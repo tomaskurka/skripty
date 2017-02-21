@@ -1,25 +1,16 @@
 #!/bin/bash
-
 cas=`date +%T`
-echo "Aktuální čas:" $cas
-
-ip=`ifconfig | grep Všesměr | awk -F ":" '{print $2}'| awk -F " " '{print $1}'`
-echo "Moje ip:" $ip
-
+ip=`ifconfig | grep Všesměr | awk -F ":" '{print $2}' | awk -F " " '{print $1}'`
 rx=`ifconfig eth0 | grep Přijato | awk -F "(" '{print $2}' | awk -F ")" '{print $1}'`
-echo "Přijatá data:" $rx
-
 tx=`ifconfig eth0 | grep Přijato | awk -F "(" '{print $3}' | awk -F ")" '{print $1}'`
-echo "Odeslaná data:" $tx
+disk=`df -h | grep sda1 | awk -F " " '{print $2}'`
+vyuziti=`df -h | grep sda1 | awk -F " " '{print $5}'`
 
-echo "<html>" > kurka.html
-echo "<body>" >> kurka.html
-echo $cas >> kurka.html
-echo "<br>" >> kurka.html
-echo $ip >> kurka.html
-echo "<br>" >> kurka.html
-echo $rx >> kurka.html
-echo "<br>" >> kurka.html
-echo $tx >> kurka.html
-echo "</body>" >> kurka.html
-echo "</html>" >> kurka.html
+echo "Aktualni cas: "$cas >> /home/student/Plocha/skripty/index.html
+echo "Moje IP: "$ip >> /home/student/Plocha/skripty/index.html
+echo "Prijata data: "$rx >> /home/student/Plocha/skripty/index.html
+echo "Odeslana data: "$tx >> /home/student/Plocha/skripty/index.html
+echo "Velikost disku: "$disk >> /home/student/Plocha/skripty/index.html
+echo "Vyuziti disku: "$vyuziti >> /home/student/Plocha/skripty/index.html
+echo "<br><br>" >> /home/student/Plocha/skripty/index.html
+
